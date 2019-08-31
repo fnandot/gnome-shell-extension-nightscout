@@ -16,11 +16,11 @@ const messages = {
         description: 'Your glucose is now {glucose} mg/dl, congratulations!'
     },
     highGlucoseNotification: {
-        title: 'Your blood glucose is running high!',
+        title: 'Your blood glucose is high!',
         description: 'Your glucose is now {glucose} mg/dl.'
     },
     lowGlucoseNotification: {
-        title: 'Your blood glucose is running low!',
+        title: 'Your blood glucose is low!',
         description: 'Your glucose is now {glucose} mg/dl.'
     },
     expiredDataNotification: {
@@ -28,11 +28,11 @@ const messages = {
         description: 'There is no new readings since {elapsed} seconds ago.'
     },
     fallingDownGlucoseNotification: {
-        title: 'Your blood glucose is falling down!',
+        title: 'Your blood glucose is falling down fastly!',
         description: 'Your glucose is falling down at ↓{delta} mg/dl since last reading.'
     },
     raisingUpGlucoseNotification: {
-        title: 'Your blood glucose is raising up!',
+        title: 'Your blood glucose is raising up fastly!',
         description: 'Your glucose is raising up at ↑{delta} mg/dl since last reading.'
     },
 };
