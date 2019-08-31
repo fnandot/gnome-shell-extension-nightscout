@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.nightscout" path="/org/gnome/shell/extensions/nightscout/">
+    <key name="nightscout" type="s">
+      <default>"https://appName.azurewebsites.net."</default>
+    </key>
+  </schema>
+</schemalist>

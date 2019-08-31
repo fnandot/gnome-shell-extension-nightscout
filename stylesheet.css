@@ -1,0 +1,48 @@
+.expired-data {
+    text-decoration:line-through;
+}
+
+.fresh-data {
+    text-decoration:none;
+}
+
+.low-glucose {
+    text-decoration:none;
+    color: #fbf484;
+}
+
+.high-glucose {
+    text-decoration:none;
+    color: #f18c8c;
+}
+
+.DoubleDown {
+    background-image: url('images/DoubleDown.svg');
+}
+.DoubleUp {
+    background-image: url('images/DoubleUp.svg');
+}
+.Flat {
+    background-image: url('images/Flat.svg');
+}
+.FortyFiveDown {
+    background-image: url('images/FortyFiveDown.svg');
+}
+.FortyFiveUp {
+    background-image: url('images/FortyFiveUp.svg');
+}
+.SingleDown {
+    background-image: url('images/SingleDown.svg');
+}
+.SingleUp {
+    background-image: url('images/SingleUp.svg');
+}
+.TripleDown {
+    background-image: url('images/DoubleDown.svg');
+}
+.TripleUp {
+    background-image: url('images/DoubleUp.svg');
+}
+.Direction {
+    background-image: url('images/Flat.svg');
+}
