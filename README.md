@@ -1,6 +1,9 @@
 # Nightscout for GNOME Shell
 This extension integrates Nightscout into GNOME Shell.
 
+
+This extension is not currently done and is in beta testing.
+
 ## Features
 * Retrieve glucose values from Nightscout.
 * Show a notification when your glucose readings are missing.
@@ -10,6 +13,8 @@ This extension integrates Nightscout into GNOME Shell.
 ## Missing features
 * Support for mmol/L
 * Localized support
+* Configurable levels for alerts (now 80 mg/dl for low and 180 mg/dl for high)
+* Configurable delta for raising and falling alerts (now -10 for falling and +10 for raising)
 
 ## Screenshots
 
@@ -31,3 +36,8 @@ git clone https://github.com/fnandot/gnome-shell-extension-nightscout.git \
 ```
 
 You will need to restart GNOME Shell (<kbd>Alt</kbd>+<kbd>F2</kbd>) and type `gnome-shell --replace` after that.
+
+## Disclaimer
+All information, thought, and code described here is intended for informational and educational purposes only. Use Nightscout GNOME Shell Extensions at your own risk, and do not use the information or code to make medical decisions.
+
+
