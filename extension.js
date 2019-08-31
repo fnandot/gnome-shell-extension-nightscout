@@ -42,11 +42,8 @@ const Nightscout = new Lang.Class({
         Extends: PanelMenu.Button,
         source: null,
         settings: null,
-        notificationParams: {
-            gicon: new Gio.ThemedIcon({name: 'nightscout-icon'})
-        },
-        permanentNotification: null,
-        updateInterval: 5,
+        updateInterval: 30,
+        httpSession: null,
         notifications: {
             prizeGlucoseNotification: null,
             highGlucoseNotification: null,
@@ -54,11 +51,6 @@ const Nightscout = new Lang.Class({
             expiredDataNotification: null,
             fallingDownGlucoseNotification: null,
             raisingUpGlucoseNotification: null,
-        },
-        buildAndAttachSource: function () {
-            this.source = new MessageTray.SystemNotificationSource();
-            this.source.connect('destroy', () => this.source = null);
-            Main.messageTray.add(this.source);
         },
         _init: function () {
 
@@ -74,11 +66,12 @@ const Nightscout = new Lang.Class({
             this.httpSession = new Soup.Session();
             this.actor.add_actor(this.buttonText);
 
-            this.buildAndAttachSource();
+            this._buildAndAttachSource();
 
-            this.initIcons();
+            this._initIcons();
             this._refresh();
         },
+
         _getSettings: function () {
             let extension = ExtensionUtils.getCurrentExtension();
             let schema = extension.metadata['settings-schema'];
@@ -100,7 +93,7 @@ const Nightscout = new Lang.Class({
 
             return new Gio.Settings({settings_schema: schemaObj});
         },
-        httpSession: null,
+
         _refresh: function () {
             this._loadData();
             this._removeTimeout();
@@ -115,13 +108,19 @@ const Nightscout = new Lang.Class({
             }
         },
 
-        initIcons: function () {
+        _initIcons: function () {
             let extension = ExtensionUtils.getCurrentExtension();
             let theme = Gtk.IconTheme.get_default();
             let iconDir = extension.dir.get_child('icons');
             if (iconDir.query_exists(null)) {
                 theme.append_search_path(iconDir.get_path());
             }
+        },
+
+        _buildAndAttachSource: function () {
+            this.source = new MessageTray.SystemNotificationSource();
+            this.source.connect('destroy', () => this.source = null);
+            Main.messageTray.add(this.source);
         },
 
         _checkUpdates: function () {
@@ -157,43 +156,6 @@ const Nightscout = new Lang.Class({
                         return;
                     }
 
-                    ///
-                    const possibleCases = [
-                        {
-                            sgv: Math.random(),
-                            direction: 'Flat',
-                            delta: 2,
-                            date: Date.now()
-                        },
-                        {
-                            sgv: 79,
-                            direction: 'Flat',
-                            delta: 2,
-                            date: Date.now()
-                        },
-                        {
-                            sgv: 111,
-                            direction: 'Flat',
-                            delta: 1,
-                            date: 1567168509044
-                        },
-                        {
-                            sgv: 100,
-                            direction: 'Flat',
-                            delta: 10,
-                            date: 1567168509044
-                        },
-                        {
-                            sgv: 100,
-                            direction: 'Flat',
-                            delta: -10,
-                            date: 1567168509044
-                        }
-                    ];
-
-                    entry = possibleCases[Math.floor(Math.random() * possibleCases.length)];
-                    ///
-
                     let glucoseValue = entry.sgv;
                     let directionValue = entry.direction;
                     let delta = entry.delta;
@@ -201,31 +163,31 @@ const Nightscout = new Lang.Class({
 
                     let elapsed = Math.floor((Date.now() - date) / 1000);
 
-                    let arrow = this.fromNameToArrowCharacter(directionValue);
+                    let arrow = this._fromNameToArrowCharacter(directionValue);
                     let text = `${glucoseValue} ${arrow}`;
 
                     if (elapsed >= 600) {
                         this.buttonText.style_class = 'expired-data';
-                        this.notifyExpiredData(elapsed);
+                        this._notifyExpiredData(elapsed);
                     } else {
                         this.buttonText.style_class = 'fresh-data';
                     }
 
                     if (glucoseValue < 80) {
                         this.buttonText.style_class = 'low-glucose';
-                        this.notifyLowGlucose(glucoseValue);
+                        this._notifyLowGlucose(glucoseValue);
                     } else if (glucoseValue > 180) {
                         this.buttonText.style_class = 'high-glucose';
-                        this.notifyHighGlucose(glucoseValue);
+                        this._notifyHighGlucose(glucoseValue);
                     } else if (glucoseValue === 111) {
-                        this.notifyPrizeGlucose(glucoseValue);
+                        this._notifyPrizeGlucose(glucoseValue);
                         this.buttonText.style_class = 'fresh-data';
                     } else {
                         this.buttonText.style_class = 'fresh-data';
                     }
 
                     if (delta >= 10) {
-                        this.notifyRaisingUpGlucose(delta);
+                        this._notifyRaisingUpGlucose(delta);
                     } else if (delta <= -10) {
                         this.notifyFallingDownGlucose(delta);
                     }
@@ -234,24 +196,24 @@ const Nightscout = new Lang.Class({
                 })
             );
         },
-        notifyLowGlucose: function (glucoseValue) {
-            this.notify(
+        _notifyLowGlucose: function (glucoseValue) {
+            this._notify(
                 'lowGlucoseNotification',
                 messages.lowGlucoseNotification.title,
                 messages.lowGlucoseNotification.description.replace('{glucose}', glucoseValue),
                 2
             );
         },
-        notifyHighGlucose: function (glucoseValue) {
-            this.notify(
+        _notifyHighGlucose: function (glucoseValue) {
+            this._notify(
                 'highGlucoseNotification',
                 messages.highGlucoseNotification.title,
                 messages.highGlucoseNotification.description.replace('{glucose}', glucoseValue),
                 2
             );
         },
-        notifyExpiredData: function (elapsedSeconds) {
-            this.notify(
+        _notifyExpiredData: function (elapsedSeconds) {
+            this._notify(
                 'expiredDataNotification',
                 messages.expiredDataNotification.title,
                 messages.expiredDataNotification.description.replace('{elapsed}', elapsedSeconds),
@@ -259,76 +221,67 @@ const Nightscout = new Lang.Class({
             );
         },
         notifyFallingDownGlucose: function (delta) {
-            this.notify(
+            this._notify(
                 'fallingDownGlucoseNotification',
                 messages.fallingDownGlucoseNotification.title,
                 messages.fallingDownGlucoseNotification.description.replace('{delta}', Math.abs(delta)),
                 2
             );
         },
-        notifyRaisingUpGlucose: function (delta) {
-            this.notify(
+        _notifyRaisingUpGlucose: function (delta) {
+            this._notify(
                 'raisingUpGlucoseNotification',
                 messages.raisingUpGlucoseNotification.title,
                 messages.raisingUpGlucoseNotification.description.replace('{delta}', Math.abs(delta)),
                 2
             );
         },
-        notifyPrizeGlucose: function (glucoseValue) {
-            this.notify(
+        _notifyPrizeGlucose: function (glucoseValue) {
+            this._notify(
                 'prizeGlucoseNotification',
                 messages.prizeGlucoseNotification.title.replace('{glucose}', glucoseValue),
                 messages.prizeGlucoseNotification.description.replace('{glucose}', glucoseValue),
                 2
             );
         },
-        notify: function (notificationName, title, description, urgency) {
+        _notify: function (notificationName, title, description, urgency) {
+
+            const notificationParams = {
+                gicon: new Gio.ThemedIcon({name: 'nightscout-icon'})
+            };
 
             if (null === this.source) {
-                this.buildAndAttachSource();
+                this._buildAndAttachSource();
             }
 
             let notification = this.notifications[notificationName];
 
             if (null !== notification) {
-
-                print(notificationName+' is not null!')
-
-                // if(this.source.contains(notification)) {
-                //     notification.destroy();
-                // }
-
                 notification.update(
                     title,
                     description,
-                    this.notificationParams
+                    notificationParams
                 );
                 return;
             }
-
-            print(notificationName + ' is null!');
 
             notification = this.notifications[notificationName] = new MessageTray.Notification(
                 this.source,
                 title,
                 description,
-                this.notificationParams
+                notificationParams
             );
 
             notification.connect('destroy', () => {
                 print("Notification destroyed " + notification.description);
                 this.notifications[notificationName] = null
             });
-            notification.connect('acknowledged-changed', (a) => {
-                //print("Notification acknowledged " + a + " " + notification.description);
-                //this.notifications[notificationName] = null
-            });
 
             notification.setUrgency(urgency);
 
             this.source.notify(notification);
         },
-        fromNameToArrowCharacter: (directionValue) => {
+        _fromNameToArrowCharacter: (directionValue) => {
             switch (directionValue) {
                 case "DoubleDown":
                     return "⇊";
