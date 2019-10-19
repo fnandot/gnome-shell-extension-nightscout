@@ -19,10 +19,10 @@ This extension is not currently done and is in beta testing.
 ## Screenshots
 
 ### Notifications
-![https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png](https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png)
+![https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png](https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png)
 
 ### Panel indicator
-![https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png](https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png)
+![https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png](https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png)
 
 ## To improve
 * Improve preferences screen
@@ -31,8 +31,8 @@ This extension is not currently done and is in beta testing.
 ## Installation
 Clone from Git:
 ```
-git clone https://github.com/fnandot/gnome-shell-extension-nightscout.git \
-~/.local/share/gnome-shell/extensions/gnome-shell-extension-nightscout@fnandot
+git clone https://github.com/letnando/gnome-shell-extension-nightscout.git \
+~/.local/share/gnome-shell/extensions/gnome-shell-extension-nightscout@letnando
 ```
 
 You will need to restart GNOME Shell (<kbd>Alt</kbd>+<kbd>F2</kbd>) and type `gnome-shell --replace` after that.
