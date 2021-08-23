@@ -6,6 +6,11 @@
     text-decoration:none;
 }
 
+.urgent-low-glucose {
+    text-decoration:none;
+    color: #fff100;
+}
+
 .low-glucose {
     text-decoration:none;
     color: #fbf484;
@@ -14,6 +19,11 @@
 .high-glucose {
     text-decoration:none;
     color: #f18c8c;
+}
+
+.urgent-high-glucose {
+    text-decoration:none;
+    color: #ff0000;
 }
 
 .DoubleDown {

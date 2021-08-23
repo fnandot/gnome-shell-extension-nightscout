@@ -1,7 +1,7 @@
 {
+  "uuid": "nightscout@fnandot.github.io",
   "name": "Nightscout",
   "description": "Retrieves Glucose data from Nightscout",
-  "uuid": "Nightscout@mrobot",
   "shell-version": [
     "3.14",
     "3.16",
@@ -14,5 +14,6 @@
     "3.32"
   ],
   "version": 1.0,
-  "settings-schema": "org.gnome.shell.extensions.nightscout"
+  "settings-schema": "org.gnome.shell.extensions.nightscout",
+  "url": "https://github.com/fnandot/gnome-shell-extension-nightscout"
 }

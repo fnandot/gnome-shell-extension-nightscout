@@ -1,7 +1,6 @@
 # Nightscout for GNOME Shell
 This extension integrates Nightscout into GNOME Shell.
 
-
 This extension is not currently done and is in beta testing.
 
 ## Features
@@ -19,10 +18,10 @@ This extension is not currently done and is in beta testing.
 ## Screenshots
 
 ### Notifications
-![https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png](https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png)
+![https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png](https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/notifications.screenshot.png)
 
 ### Panel indicator
-![https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png](https://github.com/letnando/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png)
+![https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png](https://github.com/fnandot/gnome-shell-extension-nightscout/raw/master/panel-indicator.screenshot.png)
 
 ## To improve
 * Improve preferences screen

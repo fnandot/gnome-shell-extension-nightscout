@@ -1,8 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist>
   <schema id="org.gnome.shell.extensions.nightscout" path="/org/gnome/shell/extensions/nightscout/">
-    <key name="nightscout" type="s">
+    <key name="nightscout-url" type="s">
       <default>"https://appName.azurewebsites.net."</default>
+    </key>
+    <key name="urgent-low-alert" type="i">
+      <default>55</default>
+    </key>
+    <key name="urgent-low-alert-enabled" type="b">
+      <default>false</default>
+    </key>
+    <key name="low-alert" type="i">
+      <default>80</default>
+    </key>
+    <key name="low-alert-enabled" type="b">
+      <default>false</default>
+    </key>
+    <key name="high-alert" type="i">
+      <default>180</default>
+    </key>
+    <key name="high-alert-enabled" type="b">
+      <default>false</default>
+    </key>
+    <key name="urgent-high-alert" type="i">
+      <default>220</default>
+    </key>
+    <key name="urgent-high-alert-enabled" type="b">
+      <default>false</default>
+    </key>
+    <key name="falling-glucose-alert" type="i">
+      <default>-10</default>
+    </key>
+    <key name="raising-glucose-alert" type="i">
+      <default>10</default>
+    </key>
+    <key name="glucose-variability-alert-enabled" type="b">
+      <default>false</default>
     </key>
   </schema>
 </schemalist>

@@ -1,21 +1,18 @@
-# simple helper makefile, handles schema compilation, translations and zip file creation
 
-.PHONY= zip-file
+all: dist
 
-# files that go into the zip
-ZIP= $(wildcard *.js) metadata.json
+ZIPFILES = *.js *.json schemas LICENSE README.md
+BUILD_DIR=build/
+DIST_DIR=dist/
+UUID=nightscout@fnandot.github.io
 
-all:
-	${MAKE} compile
-	${MAKE} package
-
-compile:
+_glib-schemas:
 	glib-compile-schemas schemas/
 
-package: $(ZIP)
-	mkdir -p build
-	rm -f build/nightscout.zip
-	zip build/nightscout.zip $(ZIP)
+_build:
+	${MAKE} _glib-schemas
 
-clean:
-	rm -rf build
+dist: _build
+	mkdir -p $(DIST_DIR)
+	zip -qjr $(DIST_DIR)/$(UUID).zip $(ZIPFILES)
+
